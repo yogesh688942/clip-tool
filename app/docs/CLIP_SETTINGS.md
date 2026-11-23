@@ -97,5 +97,6 @@ Reference implementations:
 | `stream_02-23-17` | 02:23:17–02:23:40 (23 s) | `reel_02-23-17_1440p60_hinglish_karaoke.mp4` | `karaoke_highlight` |
 | `stream_02-23-17` | same | `reel_02-23-17_1440p60_hinglish.mp4` | `full_cue_fade` |
 | `stream_01-58-27` | 01:58:27–01:59:30 (63 s) | `reel_01-58-27_1440p60_hinglish_karaoke.mp4` | `karaoke_highlight` |
+| `stream_03-16-03` | 03:16:03–03:16:59 (56 s) | `reel_03-16-03_1440p60_hinglish_karaoke.mp4` | `karaoke_highlight` |
 
 Older files in `downloads\` (`*_word_by_word.mp4`) are superseded and can be deleted.

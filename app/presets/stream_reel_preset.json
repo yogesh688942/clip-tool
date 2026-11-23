@@ -127,6 +127,23 @@
         {"t": 52.28, "name": "bruh"}
       ],
       "output": "downloads/reel_01-58-27_1440p60_hinglish_karaoke.mp4"
+    },
+    "stream_03-16-03": {
+      "source": "https://www.youtube.com/live/_UNPfXe-KiU",
+      "timestamp": "03:16:03-03:16:59",
+      "duration_s": 56.0,
+      "facecam_crop": [1950, 930, 2400, 1330],
+      "gameplay_crop_x": [584, 2024],
+      "split_y": 1093,
+      "caption_profile": "karaoke_highlight",
+      "transcription": "forced pass merged - normal pass missed game dialogue at 30-52s",
+      "sfx_events": [
+        {"t": 0.70, "name": "oh_my_god"},
+        {"t": 8.00, "name": "shocked"},
+        {"t": 23.32, "name": "metal_gear_alert"},
+        {"t": 48.12, "name": "bruh"}
+      ],
+      "output": "downloads/reel_03-16-03_1440p60_hinglish_karaoke.mp4"
     }
   },
   "sound": {

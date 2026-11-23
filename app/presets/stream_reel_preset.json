@@ -1,0 +1,145 @@
+{
+  "name": "stream_reel_preset",
+  "confirmed": "2026-11-21",
+  "resolution_policy_updated": "2026-11-22",
+  "source_project": "projects/stream_01-06-30",
+  "timeline": {
+    "cut": false,
+    "rule": "NEVER cut, re-time or shorten the user's clip - output must equal the requested timestamp duration exactly",
+    "note": "9-shot/16.2s cut reel was rejected; full continuous versions approved (40s and 36s clips)"
+  },
+  "resolution_policy": {
+    "default": {"width": 1440, "height": 2560, "fps": 60},
+    "rule": "Use the highest resolution the source offers at 60fps. Default is 1440p60; if 2160p60 (4K) or higher is available, use that instead.",
+    "aspect": "vertical 9:16 - always downscale height to width*16/9 (1440x2560, 2160x3840)",
+    "source_policy": "Download the highest-resolution 60fps format available via yt-dlp -F; check the format list before downloading",
+    "scaling": "All layout coords in this preset are in a 1080x1920 base space. Multiply every coord by (output_width/1080). Source crop coords are in a 1920x1080 base space - multiply by (source_width/1920). Caption renderer scale = output_width/1080.",
+    "verified_example": "2560x1440 source -> 1440x2560 output: facecam crop (0,467,667,973), split y=1093, gameplay crop x 584-2024"
+  },
+  "canvas": {"width": 1440, "height": 2560, "fps": 60, "codec": "h264", "audio": "aac", "duration": "exact requested timestamp", "crf": 17, "note": "1440p60 default; upgrade to 2160p60 when source offers it - see resolution_policy"},
+  "layout": {
+    "base_space": "1080x1920 - scale all coords by output_width/1080",
+    "facecam": {
+      "top": 0,
+      "bottom": 820,
+      "source_crop": [0, 350, 500, 730],
+      "source_base": "1920x1080 - scale coords by source_width/1920",
+      "note": "slightly smaller, wider view, face centred - earlier tight 320x280 crop rejected",
+      "per_clip_detection": "REQUIRED: the facecam is NOT always top-left. Run face detection on several frames of the new source; find the consistent face cluster(s), frame them centred with a wider view, and confirm the location with the user via a labeled grid preview before building the storyboard.",
+      "examples": {
+        "top_left_duo_stream": [0, 467, 667, 973],
+        "top_right_duo_stream": [1980, 0, 2560, 440]
+      }
+    },
+    "gameplay": {"top": 820, "bottom": 1920, "note": "tight centre crop: scale full source frame so its height equals the bottom panel height, then centre-crop to output width"},
+    "text": {"position": "split line", "pop_center_y": 775, "dense_line1_y": 865, "dense_line_spacing": 54, "no_background": true, "no_divider": true},
+    "no_watermark": true,
+    "no_annotation_strips": true
+  },
+  "typography": {
+    "font": "tools/fonts/Montserrat-Variable.ttf",
+    "weight": 800,
+    "pop_px": 80,
+    "dense_px": 48,
+    "language": "roman_hinglish",
+    "translate_spoken_english_to_hinglish": true,
+    "colors": {"dense": "#1EE3B2", "highlight": "#FF3B30", "pop": "#FFD400", "outline": "#000000"},
+    "outline_px": {"pop": 12, "dense": 9}
+  },
+  "captions": {
+    "word_synced": true,
+    "timing_source": "whisper segment-level timings (cue spans)",
+    "word_by_word_reveal": false,
+    "display": "whole cue at once; fade entire cue in/out over 0.10 s (word-by-word was reverted: sync gaps and missing text on speech frames)",
+    "no_text_during_silence": true,
+    "one_cue_at_a_time": true,
+    "fade_in_out_s": 0.10,
+    "emoji": {
+      "enabled": true,
+      "pop_emoji_px": 88,
+      "inline_emoji_px": 44,
+      "inline_position": "between words of the dense line",
+      "fades_with_caption": true,
+      "reveals_with_its_word": false,
+      "asset_dir": "assets/emoji",
+      "source": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/<code>.png",
+      "helper": "projects/stream_01-55-34/emoji_text.py"
+    },
+    "cues_file": "per-project caption_cues.json",
+    "reference_projects": ["projects/stream_01-06-30", "projects/stream_01-55-34"]
+  },
+  "caption_profiles": {
+    "default": "full_cue_fade",
+    "full_cue_fade": {
+      "display": "whole cue at once",
+      "fade_in_out_s": 0.10,
+      "renderer": "projects/stream_02-23-17/render_full.py",
+      "helper": "projects/stream_02-23-17/emoji_text.py"
+    },
+    "karaoke_highlight": {
+      "display": "full caption visible from cue start in dimmed state; each word eases to full brightness in sequence",
+      "dim_factor": 0.50,
+      "dim_floor": 25,
+      "easing": "smoothstep",
+      "highlight_time_s": 0.18,
+      "cue_fade_in_out_s": 0.10,
+      "timing_source": "per-word times mapped from whisper word timestamps",
+      "renderer": "projects/stream_02-23-17/render_karaoke.py",
+      "helper": "projects/stream_02-23-17/karaoke_caption.py",
+      "used_for": "reel_02-23-17"
+    },
+    "word_by_word_reveal": {
+      "status": "deprecated_do_not_use",
+      "reason": "per-word fade-in caused sync gaps and missing text on speech frames",
+      "renderer": "projects/stream_02-23-17/render.py",
+      "helper": "projects/stream_02-23-17/word_caption.py"
+    },
+    "compositing_rule": "PIL overlays are RGB, cv2 frames are BGR - convert frame to RGB, composite, convert back (a past render swapped them and broke caption colors)"
+  },
+  "project_examples": {
+    "stream_02-23-17": {
+      "source": "https://www.youtube.com/live/h3qEwM6k074",
+      "timestamp": "02:23:17-02:23:40",
+      "duration_s": 23.0,
+      "facecam_crop": [1980, 0, 2560, 440],
+      "gameplay_crop_x": [584, 2024],
+      "split_y": 1093,
+      "caption_profile": "karaoke_highlight",
+      "sfx_events": [
+        {"t": 0.00, "name": "oh_my_god"},
+        {"t": 7.12, "name": "vine_boom"},
+        {"t": 21.40, "name": "bruh"}
+      ],
+      "output": "downloads/reel_02-23-17_1440p60_hinglish_karaoke.mp4"
+    },
+    "stream_01-58-27": {
+      "source": "https://www.youtube.com/live/_UNPfXe-KiU",
+      "timestamp": "01:58:27-01:59:30",
+      "duration_s": 63.0,
+      "facecam_crop": [1950, 930, 2400, 1330],
+      "gameplay_crop_x": [584, 2024],
+      "split_y": 1093,
+      "caption_profile": "karaoke_highlight",
+      "sfx_events": [
+        {"t": 0.00, "name": "oh_my_god"},
+        {"t": 21.08, "name": "vine_boom"},
+        {"t": 43.64, "name": "metal_gear_alert"},
+        {"t": 52.28, "name": "bruh"}
+      ],
+      "output": "downloads/reel_01-58-27_1440p60_hinglish_karaoke.mp4"
+    }
+  },
+  "sound": {
+    "beat_bpm": null,
+    "music_bed": false,
+    "voice_lufs": -14,
+    "voice_tp": -1.5,
+    "sfx_source": "MyInstants meme sounds — https://www.myinstants.com/en/search/?name=Meme",
+    "sfx_extraction": "fetch https://www.myinstants.com/en/instant/<slug>/ and take the first /media/sounds/*.mp3 link; download with a browser User-Agent",
+    "sfx": ["oh_my_god", "chicken_scream", "vine_boom", "nuagg_scream", "metal_gear_alert", "explosion", "bruh", "shocked", "faaah", "death", "gunshot", "sad_violin", "duck_toy", "aayein", "awkward"],
+    "placement": "SPARSE — meme SFX only at genuinely crazy moments (screams, OH NO, frustration, chaotic peak); voice stays on top; no bed. Supersedes old 120 BPM beat + synth pack.",
+    "assets": "projects/stream_02-18-49/sfx/meme",
+    "timeline": "per-project render.py EVENTS list"
+  },
+  "workflow": {"storyboard_approval_before_render": true}
+}

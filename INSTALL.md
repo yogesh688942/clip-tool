@@ -1,0 +1,40 @@
+# Installation instructions (for OpenCode to follow)
+
+The user will ask you to install this repo on a new computer using OpenCode.
+Do the following in order. Do not ask the user to run manual terminal commands.
+
+1. Clone the repo into a stable folder:
+   - Windows: `Documents\clip-tool`
+   - macOS/Linux: `~/clip-tool`
+   Use `git clone <REPO_URL> <destination>`. If the destination already exists and
+   is a git checkout, run `git pull` instead.
+
+2. Verify `python --version` is 3.10+. If not, install Python 3.12 from
+   <https://www.python.org/downloads/> (Windows: check "Add Python to PATH").
+
+3. From the repo root run:
+   ```sh
+   python install.py
+   ```
+   This creates `.venv`, installs `requirements.txt`, installs/verifies ffmpeg,
+   pre-downloads the Whisper `small` model, and copies the `clip-tool` skill and
+   `/clip` command into the global OpenCode config directory.
+
+4. If ffmpeg is still not on PATH after `install.py`, install it:
+   - Windows: `winget install --id Gyan.FFmpeg -e --accept-source-agreements --accept-package-agreements`
+   - macOS: `brew install ffmpeg`
+   - Debian/Ubuntu: `sudo apt-get install -y ffmpeg`
+   Then re-run `python install.py`.
+
+5. Confirm the install by checking that `.venv`, `app/tools`, `app/assets/emoji`,
+   `app/sfx/meme`, `~/.config/opencode/skills/clip-tool/SKILL.md` (or Windows
+   `%USERPROFILE%\.config\opencode\...`) and `clip-tool-path.txt` all exist.
+
+6. Report exactly: `CLIP TOOL READY — installed at <path>`. Then tell the user to
+   open a new OpenCode session and run `/clip <url> <start>-<end> [profile]`.
+
+## Notes
+
+- The install is safe to re-run; it does not delete projects or downloads.
+- Generated files live in `projects/`, `downloads/` and `.venv/` and are gitignored.
+- Whisper's first model download is ~500 MB; it happens during install.

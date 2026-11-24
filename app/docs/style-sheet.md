@@ -181,7 +181,7 @@ Confirmed 2026-11-21 and **locked as the permanent default on 2026-11-22** ("sav
 
 ### Caption display profiles (saved 2026-11-22)
 - **Default — `full_cue_fade`:** whole cue shown at once, fade in/out 0.10 s. See `projects\stream_02-23-17\render_full.py` + `emoji_text.py`.
-- **Optional — `karaoke_highlight`:** the complete caption is visible from cue start in a dimmed state (RGB ×0.50 + 25 floor); each word/pop/inline emoji eases up to full brightness in sequence with smoothstep over **0.18 s** at its word time; cue fades over 0.10 s. Text never disappears mid-sentence. Used for `reel_02-23-17`; see `projects\stream_02-23-17\render_karaoke.py` + `karaoke_caption.py`.
+- **Optional — `karaoke_highlight`:** the complete caption is visible from cue start in a dimmed state (RGB ×0.50 + 25 floor); each word/pop/inline emoji eases up to full brightness in sequence with smoothstep over **0.18 s** at its word time; cue fades over 0.10 s. Text never disappears mid-sentence. Used for the 23 s, 63 s and 56 s reels; see `projects\stream_02-23-17\render_karaoke.py` + `karaoke_caption.py`.
 - **Deprecated — `word_by_word_reveal`:** do NOT use. Per-word fade-in caused sync gaps and missing text while the person was speaking.
 - Compositing: PIL overlays are RGB, cv2 frames are BGR — convert frame to RGB, composite, then convert back.
 - Full machine-readable settings: `presets\stream_reel_preset.json` (`caption_profiles`) and `CLIP_SETTINGS.md`.

@@ -1,8 +1,11 @@
 # Clip-Making Settings — Complete Saved Recipe
 
-This is the single reference for making a reel from a supplied YouTube timestamp.
-Also kept in sync in `style-sheet.md` (Section 9) and `presets/stream_reel_preset.json`.
-Last updated 2026-11-22.
+This is the **master settings file** for making a reel from a supplied YouTube timestamp.
+It lives on disk, so it survives clearing the chat or starting a new OpenCode session.
+Also kept in sync in `style-sheet.md` (Section 9), `README-tools.md`,
+`presets/stream_reel_preset.json`, and in the shareable installer repo
+`clip-tool/app/docs/` + `clip-tool/app/presets/`.
+Last updated 2026-11-24.
 
 ---
 
@@ -53,7 +56,7 @@ yt-dlp --no-playlist --download-sections "*02:23:17-02:23:40" --force-keyframes-
 | Profile | Status | Behavior |
 | --- | --- | --- |
 | `full_cue_fade` | **Default** | Whole cue shown at once, fade in/out 0.10 s. |
-| `karaoke_highlight` | Optional | Whole cue visible from cue start in a dimmed state; each word eases up to full brightness in sequence. Dim factor 0.50 + floor 25, smoothstep easing over 0.18 s per item, cue fade 0.10 s. Never loses text mid-sentence. Used for `reel_02-23-17`. |
+| `karaoke_highlight` | Optional (chosen for recent clips) | Whole cue visible from cue start in a dimmed state; each word eases up to full brightness in sequence. Dim factor 0.50 + floor 25, smoothstep easing over 0.18 s per item, cue fade 0.10 s. Never loses text mid-sentence. Used for the 23 s, 63 s and 56 s reels. |
 | `word_by_word_reveal` | **Deprecated — do not use** | Per-word fade-in caused sync gaps and missing text while the person was speaking. |
 
 Reference implementations:

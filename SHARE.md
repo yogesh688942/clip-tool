@@ -26,6 +26,8 @@ Example:
 ```
 
 It will ask you to confirm the facecam crop and approve the storyboard before rendering.
+It also installs four sound tools: free CC sound search (Openverse), real-SFX placement,
+real recording licensing/mixing, and Earshot for making and checking audio.
 
 ---
 

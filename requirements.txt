@@ -4,3 +4,4 @@ numpy>=1.24,<3
 opencv-python-headless>=4.8
 yt-dlp>=2024.8.6
 imageio-ffmpeg>=0.5.1
+earshot[listen,mcp] @ git+https://github.com/Leonxlnx/earshot

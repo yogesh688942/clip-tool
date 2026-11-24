@@ -78,6 +78,24 @@ Reference implementations:
 - Past 23 s events: `0.00 oh_my_god`, `7.12 vine_boom`, `21.40 bruh`.
 - Current 31 s events: `15.66 metal_gear_alert`, `22.76 oh_my_god`, `26.48 bruh`.
 
+### Installed sound tools (2026-11-24)
+
+Four abilities are installed as global OpenCode skills (`~/.config/opencode/skills`)
+and bundled into the shareable `clip-tool` installer:
+
+- **openverse** — public Openverse audio API, no key. Search CC sounds with
+  `python .config/opencode/skills/openverse/scripts/openverse.py search "whoosh" --license cc0`;
+  `download <id>` / `fetch "..."` save the sound and write `CREDITS.md`. Prefer CC0.
+- **real-sfx** — sound-design with real recorded sounds placed on exact frames;
+  ships 78 CC0 UI cues in its `vendor/node_modules/uisfx` folder.
+- **real-sound** — source, license, mix, master and credit real recordings for a film.
+- **earshot** — make SFX from plain English on CPU (`earshot make "..."`), and
+  `describe`/`compare`/`realness` to verify audio by ear. Installed with the
+  `listen` + `mcp` extras; listening models (~1.1 GB) fetch on first use or with
+  `earshot doctor --fetch`.
+
+These extend the SFX palette only. **No beat song / no music bed still applies.**
+
 ## 6. Transcription and cue building
 
 - `whisper` model `small`, `language="en"`, `word_timestamps=True`.

@@ -111,6 +111,16 @@ Add 2–4 sparse meme hits at genuinely crazy moments to `config.json`:
 Available names are the `.mp3` filenames in `<repo>/app/sfx/meme`. No beat song,
 no music bed. Voice is normalized; SFX sit under it.
 
+For extra sounds, use the bundled skills (installed beside this one):
+- `openverse` — free CC-licensed recorded sounds, no API key; writes `CREDITS.md`.
+  `python <config-home>/opencode/skills/openverse/scripts/openverse.py search "whoosh" --license cc0`
+- `earshot` — make a new SFX from words: `earshot make "cartoon boing" -o sfx.wav`.
+  Its `describe`/`compare` commands can verify audio you cannot hear.
+- `real-sfx` / `real-sound` — place real recordings on exact frames, or source,
+  license and mix a soundtrack.
+
+Still no beat song: extra sounds are sparse one-shots at crazy moments only.
+
 ### 9. Render
 ```sh
 <python> <repo>/app/tools/render.py --config <config>

@@ -79,10 +79,26 @@ npx hyperframes preview
 npx hyperframes render
 ```
 
+## 5. Sound tools installed as OpenCode skills (2026-11-24)
+
+All four live in `%USERPROFILE%\.config\opencode\skills` and are bundled in `clip-tool\`:
+
+- `openverse` — free CC-licensed recorded sounds, no API key. Helper:
+  `python .config\opencode\skills\openverse\scripts\openverse.py search "whoosh" --license cc0`
+  then `download <id>` / `fetch "..."` (writes `CREDITS.md`). Prefer CC0.
+- `real-sfx` — place real recordings on exact frames; 78 CC0 UI cues included.
+- `real-sound` — source, license, mix, master and credit real recordings.
+- `earshot` — make SFX from plain English (`earshot make "cartoon boing" -o boing.wav`)
+  and verify audio by ear (`earshot describe boing.wav`, `earshot doctor`).
+  Listening models are cached in `%USERPROFILE%\.cache\earshot`.
+
+These extend the SFX palette only — still **no beat song / no music bed**.
+
 ## Verify installations
 
 ```powershell
 ffmpeg -version
 yt-dlp --version
 whisper --help
+earshot doctor
 ```

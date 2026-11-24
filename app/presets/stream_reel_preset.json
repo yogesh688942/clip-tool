@@ -1,5 +1,10 @@
 {
   "name": "stream_reel_preset",
+  "sound_tools": {
+    "installed_2026_11_24": ["openverse", "real-sfx", "real-sound", "earshot"],
+    "source": "OpenCode global skills; also bundled in the clip-tool installer",
+    "rule": "Extra one-shot SFX only - no beat song, no music bed. Prefer CC0; write CREDITS.md for other CC licences."
+  },
   "confirmed": "2026-11-21",
   "resolution_policy_updated": "2026-11-22",
   "source_project": "projects/stream_01-06-30",

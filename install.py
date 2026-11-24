@@ -1,8 +1,12 @@
-"""One-command installer for the clip tool and its OpenCode skill/command.
+"""One-command installer for the clip tool and its OpenCode skills/command.
 
 Run with:  python install.py
-Safe to re-run. Creates .venv, installs dependencies, checks ffmpeg, and
-registers the global OpenCode skill + '/clip' command.
+Safe to re-run. Creates .venv, installs dependencies (including Earshot with
+its listening + MCP extras), checks ffmpeg, and registers the global OpenCode
+skills (clip tool, openverse, real-sfx, real-sound, earshot) + '/clip' command.
+
+Set CLIP_TOOL_EARSHOT_FETCH=1 before running to pre-download Earshot's ~1.1 GB
+listening models. Otherwise they download on first listening use.
 """
 import json
 import os
@@ -61,20 +65,56 @@ def ensure_ffmpeg():
 def register_opencode():
     home = Path(os.environ.get("XDG_CONFIG_HOME") or (Path.home() / ".config"))
     op = home / "opencode"
-    skill_src = ROOT / ".opencode" / "skills" / "clip-tool" / "SKILL.md"
+    skills_src = ROOT / ".opencode" / "skills"
     cmd_src = ROOT / ".opencode" / "commands" / "clip.md"
 
-    skill_dst = op / "skills" / "clip-tool" / "SKILL.md"
     cmd_dst = op / "commands" / "clip.md"
-    skill_dst.parent.mkdir(parents=True, exist_ok=True)
     cmd_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(skill_src, skill_dst)
     shutil.copyfile(cmd_src, cmd_dst)
-
-    # The skill is installed globally, so it needs to know where the repo lives.
-    (op / "clip-tool-path.txt").write_text(str(ROOT) + "\n", encoding="utf-8")
-    print(f"OpenCode skill: {skill_dst}", flush=True)
     print(f"OpenCode command: {cmd_dst}", flush=True)
+
+    # Copy every bundled skill folder (workflow + the three sound tools).
+    installed = []
+    for skill in sorted(p for p in skills_src.iterdir() if p.is_dir()):
+        if not (skill / "SKILL.md").exists():
+            continue
+        dst = op / "skills" / skill.name
+        shutil.copytree(skill, dst, dirs_exist_ok=True)
+        installed.append(skill.name)
+        print(f"OpenCode skill: {dst / 'SKILL.md'}", flush=True)
+
+    # The skills are installed globally, so they need to know where the repo lives.
+    (op / "clip-tool-path.txt").write_text(str(ROOT) + "\n", encoding="utf-8")
+    return installed
+
+
+def prepare_torch(py):
+    """Earshot's listen extra needs torch; use the small CPU wheel index first."""
+    print("installing CPU-only PyTorch first (keeps Earshot download small)...", flush=True)
+    try:
+        call([py, "-m", "pip", "install", "torch",
+              "--index-url", "https://download.pytorch.org/whl/cpu"])
+    except Exception as e:
+        print("CPU torch pre-install failed; using the default index:", e, flush=True)
+
+
+def check_sound_tools(py):
+    try:
+        out = subprocess.check_output([py, "-m", "earshot", "doctor"],
+                                      text=True, stderr=subprocess.STDOUT)
+        print(out.strip(), flush=True)
+    except Exception as e:
+        print("Earshot doctor could not run yet:", e, flush=True)
+
+    if os.environ.get("CLIP_TOOL_EARSHOT_FETCH") == "1":
+        print("pre-fetching Earshot listening models (~1.1 GB)...", flush=True)
+        call([py, "-m", "earshot", "doctor", "--fetch"])
+    else:
+        print(
+            "Earshot listening models download on first use (~1.1 GB). To fetch "
+            "them now, set CLIP_TOOL_EARSHOT_FETCH=1 and re-run install.py.",
+            flush=True,
+        )
 
 
 def main():
@@ -89,8 +129,10 @@ def main():
         raise SystemExit(f"venv python missing: {py}")
 
     call([py, "-m", "pip", "install", "--upgrade", "pip"])
+    prepare_torch(py)
     call([py, "-m", "pip", "install", "-r", ROOT / "requirements.txt"])
     ensure_ffmpeg()
+    check_sound_tools(py)
 
     check = (
         "import whisper, cv2, numpy, PIL, yt_dlp; "
@@ -103,9 +145,11 @@ def main():
     print("pre-downloading Whisper 'small' model (one time)...", flush=True)
     subprocess.check_call([py, "-c", "import whisper; whisper.load_model('small')"])
 
-    register_opencode()
+    skills = register_opencode()
     (ROOT / "installed.json").write_text(json.dumps({
         "python": str(py), "platform": SYSTEM, "root": str(ROOT),
+        "opencode_skills": skills,
+        "sound_tools": ["openverse", "real-sfx", "real-sound", "earshot"],
     }, indent=2) + "\n", encoding="utf-8")
     print("CLIP TOOL READY", flush=True)
 

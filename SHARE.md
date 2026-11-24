@@ -1,6 +1,6 @@
 # Share this with someone
 
-Send this message (replace `PASTE-THE-LINK-HERE` with the link from Step 4 below):
+Send this message after pushing all local commits to GitHub (the link is already filled in):
 
 ---
 
@@ -10,7 +10,7 @@ Install my clip-making tool on your computer in one step:
 2. Open OpenCode in any empty folder and paste this:
 
 ```
-Install the clip tool from PASTE-THE-LINK-HERE by cloning it into ~/clip-tool (Documents\clip-tool on Windows), then run `python install.py` inside the cloned repo. Follow INSTALL.md exactly. Confirm with "CLIP TOOL READY" when done.
+Install the clip tool from https://github.com/yogesh688942/clip-tool.git by cloning it into ~/clip-tool (Documents\clip-tool on Windows), then run `python install.py` inside the cloned repo. Follow INSTALL.md exactly. Confirm with "CLIP TOOL READY" when done.
 ```
 
 Then to make a clip, paste:

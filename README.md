@@ -12,7 +12,7 @@ sparse meme SFX and no beat.
 3. Paste this single line and press Enter:
 
 ```
-Install the clip tool from the URL of this GitHub repository by cloning it into ~/clip-tool (or Documents\clip-tool on Windows), then run `python install.py` inside the cloned repo. Follow INSTALL.md exactly. Confirm with "CLIP TOOL READY" when done.
+Install the clip tool from https://github.com/yogesh688942/clip-tool.git by cloning it into ~/clip-tool (or Documents\clip-tool on Windows), then run `python install.py` inside the cloned repo. Follow INSTALL.md exactly. Confirm with "CLIP TOOL READY" when done.
 ```
 
 OpenCode clones the repo, creates a virtualenv, installs Python/ffmpeg dependencies

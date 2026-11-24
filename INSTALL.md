@@ -6,7 +6,7 @@ Do the following in order. Do not ask the user to run manual terminal commands.
 1. Clone the repo into a stable folder:
    - Windows: `Documents\clip-tool`
    - macOS/Linux: `~/clip-tool`
-   Use `git clone <URL of this repository> <destination>`. If the destination
+   Use `git clone https://github.com/yogesh688942/clip-tool.git <destination>`. If the destination
    already exists and is a git checkout, run `git pull` instead.
 
 2. Verify `python --version` is 3.10+. If not, install Python 3.12 from

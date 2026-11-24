@@ -28,7 +28,9 @@
       "per_clip_detection": "REQUIRED: the facecam is NOT always top-left. Run face detection on several frames of the new source; find the consistent face cluster(s), frame them centred with a wider view, and confirm the location with the user via a labeled grid preview before building the storyboard.",
       "examples": {
         "top_left_duo_stream": [0, 467, 667, 973],
-        "top_right_duo_stream": [1980, 0, 2560, 440]
+        "top_right_duo_stream": [1980, 0, 2560, 440],
+        "tight_left_face": [180, 720, 500, 1010],
+        "lower_right_face": [1950, 930, 2400, 1330]
       }
     },
     "gameplay": {"top": 820, "bottom": 1920, "note": "tight centre crop: scale full source frame so its height equals the bottom panel height, then centre-crop to output width"},
@@ -144,6 +146,22 @@
         {"t": 48.12, "name": "bruh"}
       ],
       "output": "downloads/reel_03-16-03_1440p60_hinglish_karaoke.mp4"
+    },
+    "stream_04-52-44": {
+      "source": "https://www.youtube.com/live/iyxP3wCTtP4",
+      "timestamp": "04:52:44-04:53:15",
+      "duration_s": 31.0,
+      "facecam_crop": [180, 720, 500, 1010],
+      "gameplay_crop_x": [584, 2024],
+      "split_y": 1093,
+      "caption_profile": "full_cue_fade",
+      "transcription": "normal pass used - user confirmed its ending over the forced pass by listening to the 23-31s excerpt",
+      "sfx_events": [
+        {"t": 15.66, "name": "metal_gear_alert"},
+        {"t": 22.76, "name": "oh_my_god"},
+        {"t": 26.48, "name": "bruh"}
+      ],
+      "output": "downloads/reel_04-52-44_1440p60_hinglish.mp4"
     }
   },
   "sound": {

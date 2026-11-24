@@ -11,7 +11,7 @@ Last updated 2026-11-24.
 
 ## 1. Source and download
 
-- Current stream: `https://www.youtube.com/live/h3qEwM6k074?si=C0YII29i2FeV--d0`
+- Current stream: `https://www.youtube.com/live/iyxP3wCTtP4?si=K5UBE-qe35axqABD`
 - Check available formats first: `yt-dlp -F "URL"`
 - Download the exact section (never re-time afterwards):
 
@@ -37,7 +37,9 @@ yt-dlp --no-playlist --download-sections "*02:23:17-02:23:40" --force-keyframes-
 - Split line: **y = 1093** in the 1440×2560 output.
 - **Upper panel (y 0–1093): facecam**, detected per clip and confirmed by the user with a labeled grid preview before the storyboard.
   - Top-left duo stream crop: `[0, 467, 667, 973]`
-  - Top-right duo stream crop: `[1980, 0, 2560, 440]` ← used for the current stream
+  - Tight left facecam crop: `[180, 720, 500, 1010]` ← used for the current 31 s clip
+  - Top-right duo stream crop: `[1980, 0, 2560, 440]`
+  - Lower-right facecam crop: `(1950, 930, 2400, 1330)` ← used for the 63 s and 56 s clips
   - Crop is resized edge-to-edge to 1440×1093 (no black bars); faces centered, wider view.
 - **Lower panel (y 1093–2560): gameplay**, tight center crop: resize source to 2608×1467, then take x 584–2024.
 - No watermark, no annotation strips, no divider.
@@ -73,7 +75,8 @@ Reference implementations:
 - SFX source: MyInstants (`https://www.myinstants.com/en/search/?name=Meme`).
 - Fetch `https://www.myinstants.com/en/instant/<slug>/`, take the first `/media/sounds/*.mp3` link, download with a browser User-Agent, trim to ~1–2 s.
 - Placement: sparse — only at genuinely crazy moments.
-- Current 23 s events: `0.00 oh_my_god`, `7.12 vine_boom`, `21.40 bruh`.
+- Past 23 s events: `0.00 oh_my_god`, `7.12 vine_boom`, `21.40 bruh`.
+- Current 31 s events: `15.66 metal_gear_alert`, `22.76 oh_my_god`, `26.48 bruh`.
 
 ## 6. Transcription and cue building
 
@@ -101,5 +104,6 @@ Reference implementations:
 | `stream_02-23-17` | same | `reel_02-23-17_1440p60_hinglish.mp4` | `full_cue_fade` |
 | `stream_01-58-27` | 01:58:27–01:59:30 (63 s) | `reel_01-58-27_1440p60_hinglish_karaoke.mp4` | `karaoke_highlight` |
 | `stream_03-16-03` | 03:16:03–03:16:59 (56 s) | `reel_03-16-03_1440p60_hinglish_karaoke.mp4` | `karaoke_highlight` |
+| `stream_04-52-44` | 04:52:44–04:53:15 (31 s) | `reel_04-52-44_1440p60_hinglish.mp4` | `full_cue_fade` |
 
 Older files in `downloads\` (`*_word_by_word.mp4`) are superseded and can be deleted.
